@@ -21,8 +21,8 @@ app.get('/:id', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/index.html'));
 })
 
-app.get('/api/restaurant_id/reservation', reservationProxy);
-app.get('/api/restaurant_id/hour', reservationProxy);
+app.use('/api/:restaurant_id/reservation', reservationProxy);
+app.use('/api/:restaurant_id/hour', reservationProxy);
 
 // app.post('/overview/restaurants/:restaurantId/images/', proxy({
 //   target: overviewUrl
