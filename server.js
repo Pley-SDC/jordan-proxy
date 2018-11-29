@@ -1,13 +1,18 @@
-require('newrelic');
+// require('newrelic');
 const express = require('express');
-// const morgan = require('morgan');
+const morgan = require('morgan');
 const path = require('path');
 const proxy = require('http-proxy-middleware');
 const app = express();
 const port = process.env.PORT || 1000;
 const overviewUrl = process.env.OVERVIEW_URL || 'http://localhost:9001/';
 
-// app.use(morgan('dev'));
+if (process.env.NODE_ENV === 'production') {
+  app.use(morgan('short'));
+} else {
+  app.use(morgan('dev'));
+}
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/:id', (req, res) => {
