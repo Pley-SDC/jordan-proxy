@@ -5,9 +5,11 @@ const path = require('path');
 const proxy = require('http-proxy-middleware');
 const app = express();
 const port = process.env.PORT || 3000;
-const overviewUrl = process.env.OVERVIEW_URL || 'http://localhost:9001';
+const overviewUrl = process.env.OVERVIEW_URL || 'http://13.52.10.32';
 const reservationUrl = process.env.RESERVATION_URL || "http://ec2-3-16-181-60.us-east-2.compute.amazonaws.com:3002";
+
 const reservationProxy = proxy({target: reservationUrl});
+const overviewProxy = proxy({target: overviewUrl});
 
 if (process.env.NODE_ENV === 'production') {
   app.use(morgan('short'));
@@ -23,6 +25,7 @@ app.get('/:id', (req, res) => {
 
 app.use('/api/:restaurant_id/reservation', reservationProxy);
 app.use('/api/:restaurant_id/hour', reservationProxy);
+app.use('/overview', overviewProxy);
 
 // app.post('/overview/restaurants/:restaurantId/images/', proxy({
 //   target: overviewUrl
