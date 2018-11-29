@@ -4,7 +4,7 @@ const morgan = require('morgan');
 const path = require('path');
 const proxy = require('http-proxy-middleware');
 const app = express();
-const port = process.env.PORT || 1000;
+const port = process.env.PORT || 3000;
 const overviewUrl = process.env.OVERVIEW_URL || 'http://localhost:9001/';
 
 if (process.env.NODE_ENV === 'production') {
